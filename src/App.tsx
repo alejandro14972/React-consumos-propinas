@@ -9,7 +9,7 @@ import userOrder from "./hooks/useOrder"
 function App() {
 
 
-  const { orden, propina, setPropina, addItem, eliminarItem } = userOrder();
+  const { orden, propina, setPropina, addItem, eliminarItem, guardarOrden } = userOrder();
 
 
   return (
@@ -32,6 +32,7 @@ function App() {
           </div>
         </div>
 
+      {orden.length >0?(
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
           <OrderContents
             orden={orden}
@@ -40,13 +41,19 @@ function App() {
 
           <PropinaPorcentaje
             setPropina={setPropina}
+            propina={propina}
           />
 
           <OrdenTotal
             orden={orden}
             propina={propina}
+            guardarOrden={guardarOrden}
           />
         </div>
+
+      ):
+      <p className="text-3xl text-center">No hay pedidos</p>
+    }
       </main>
 
     </>

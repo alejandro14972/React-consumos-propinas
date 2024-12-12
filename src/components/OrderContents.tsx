@@ -4,6 +4,7 @@ import { MenuItem, OrderItem } from "../types"
 type OrdenContenProps = {
   orden: OrderItem[],
   eliminarItem: (item:MenuItem)=>void
+
 }
 
 export default function OrderContents({ orden, eliminarItem }: OrdenContenProps) {
@@ -12,10 +13,8 @@ export default function OrderContents({ orden, eliminarItem }: OrdenContenProps)
       <h2 className="font-black text-4xl">Consumo</h2>
 
       <div className="space-y-3 mt-5">
-        {orden.length === 0 ?
-          <p className="text-3xl text-center">No hay pedidos</p>
-          :
-          (orden.map(item => (
+        
+          {(orden.map(item => (
 
             <div key={item.id}
               className="flex justify-between items-center border-t border-t-gray-200 py-5 last-of-type:border-b">
@@ -32,8 +31,8 @@ export default function OrderContents({ orden, eliminarItem }: OrdenContenProps)
               </button>
             </div>
 
-          ))
-          )}
+          )))}
+          
 
       </div>
 
