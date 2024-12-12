@@ -1,42 +1,46 @@
-import { useMemo, useState, useEffect } from "react"
-import { OrderItem } from "../types"
+import { useMemo } from "react";
+import { OrderItem } from "../types";
 import { formatoMoneda } from "../helpers";
 
 type OrdenTotalProps = {
-    orden : OrderItem[]
-}
+  orden: OrderItem[];
+  propina: number;
+};
 
-export default function OrdenTotal({orden}:OrdenTotalProps) {
+export default function OrdenTotal({ orden, propina }: OrdenTotalProps) {
+  // Cálculo del subtotal
+  const precioTotal = useMemo(
+    () => orden.reduce((total, item) => total + item.price * item.cantidad, 0),
+    [orden]
+  );
 
-    //const subTotalSuma = useMemo(()=> orden.reduce((total, item)=> total + (item.price * item.cantidad), 0),[orden])
-    const [precioTotal, setPrecioTotal] = useState(0);
-    const total= ()=> orden.reduce((total, item)=> total + (item.price * item.cantidad), 0);
+  // Cálculo de la propina
+  const calculoPropina = useMemo(() => precioTotal * propina, [precioTotal, propina]);
 
-    useEffect(() => {
-        setPrecioTotal(total());
-    }, [orden]);
+  // Cálculo del total a pagar
+  const totalPagar = useMemo(() => precioTotal + calculoPropina, [precioTotal, calculoPropina]);
 
   return (
     <>
-    <div className="space-y-3">
-        <h2 className="font-black text-2xl"> Totales y propina </h2>
+      <div className="space-y-3">
+        <h2 className="font-black text-2xl">Totales y propina</h2>
         <p>
-            Subtotal a pagar: {' '}
-            <span className="font-bold">{formatoMoneda(precioTotal)}</span>
+          Subtotal a pagar:{" "}
+          <span className="font-bold">{formatoMoneda(precioTotal)}</span>
         </p>
-
         <p>
-            Propina: {' '}
-            <span className="font-bold">{}</span>
+          Propina:{" "}
+          <span className="font-bold">{formatoMoneda(calculoPropina)}</span>
         </p>
-
         <p>
-            Total a pagar: {' '}
-            <span className="font-bold">$0</span>
+          Total a pagar:{" "}
+          <span className="font-bold">{formatoMoneda(totalPagar)}</span>
         </p>
-    </div>
+      </div>
 
-    <button></button>
+      <button className="bg-blue-500 text-white py-2 px-4 rounded mt-4">
+        Confirmar Pago
+      </button>
     </>
-  )
+  );
 }
