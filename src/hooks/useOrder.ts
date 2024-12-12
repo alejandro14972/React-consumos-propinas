@@ -5,7 +5,7 @@ import type { MenuItem, OrderItem } from '../types'
 export default function userorden() {
 
     const [orden, setOrden] = useState<OrderItem[]>([]);
-
+    const [propina, setPropina] = useState(0)
 
     const addItem = (item: MenuItem) => {
 
@@ -14,15 +14,24 @@ export default function userorden() {
             const actualizarOrden = [...orden];
             actualizarOrden[itemExiste].cantidad += 1;
             setOrden(actualizarOrden);
+            
         } else {
             const nuevoItem: OrderItem = { ...item, cantidad: 1 }
             setOrden([...orden, nuevoItem]);
         }
     }
 
+    const eliminarItem=(item: MenuItem) =>{
+        const nuevaOrden = orden.filter(o=> o.id !== item.id);
+        setOrden(nuevaOrden);
+    }
+
     return {
         orden,
-        addItem
+        propina,
+        setPropina,
+        addItem,
+        eliminarItem
     }
 
 

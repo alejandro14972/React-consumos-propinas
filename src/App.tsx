@@ -1,5 +1,7 @@
 import MenuItem from "./components/menuItem"
 import OrderContents from "./components/OrderContents";
+import OrdenTotal from "./components/OrdenTotal";
+import PropinaPorcentaje from "./components/PropinaPorcentaje";
 import { menuItems } from "./data/db"
 import userOrder from "./hooks/useOrder"
 
@@ -7,7 +9,7 @@ import userOrder from "./hooks/useOrder"
 function App() {
 
 
-  const {orden, addItem} = userOrder();
+  const {orden, propina, setPropina, addItem, eliminarItem} = userOrder();
 
 
   return (
@@ -33,6 +35,15 @@ function App() {
 
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
           <OrderContents
+            orden={orden}
+            eliminarItem={eliminarItem}
+          />
+
+            <PropinaPorcentaje
+              setPropina= {setPropina}
+            />
+
+          <OrdenTotal
             orden={orden}
           />
         </div>

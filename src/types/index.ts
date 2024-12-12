@@ -8,4 +8,3 @@ export type MenuItem = {
 export type OrderItem = MenuItem & {
     cantidad: number
 }
-}
