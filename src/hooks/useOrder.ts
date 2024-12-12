@@ -26,12 +26,19 @@ export default function userorden() {
         setOrden(nuevaOrden);
     }
 
+    const guardarOrden= () =>{
+        setOrden([]);
+        setPropina(0);
+        
+    }
+
     return {
         orden,
         propina,
         setPropina,
         addItem,
-        eliminarItem
+        eliminarItem,
+        guardarOrden
     }
 
 

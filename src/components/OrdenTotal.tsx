@@ -5,9 +5,10 @@ import { formatoMoneda } from "../helpers";
 type OrdenTotalProps = {
   orden: OrderItem[];
   propina: number;
+  guardarOrden: () => void
 };
 
-export default function OrdenTotal({ orden, propina }: OrdenTotalProps) {
+export default function OrdenTotal({ orden, propina, guardarOrden }: OrdenTotalProps) {
   // Cálculo del subtotal
   const precioTotal = useMemo(
     () => orden.reduce((total, item) => total + item.price * item.cantidad, 0),
@@ -38,7 +39,11 @@ export default function OrdenTotal({ orden, propina }: OrdenTotalProps) {
         </p>
       </div>
 
-      <button className="bg-blue-500 text-white py-2 px-4 rounded mt-4">
+      <button 
+      className="bg-black w-full text-white font-bold mt-10 p-3 disabled:opacity-10"
+      disabled={precioTotal ===0}
+      onClick={guardarOrden}
+      >
         Confirmar Pago
       </button>
     </>

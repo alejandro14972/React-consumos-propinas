@@ -19,9 +19,10 @@ const tipOptions = [
 
   type PropinaContenProps = {
     setPropina: React.Dispatch<React.SetStateAction<number>>
+    propina:number
   }
 
-export default function PropinaPorcentaje({setPropina}: PropinaContenProps) {
+export default function PropinaPorcentaje({setPropina, propina}: PropinaContenProps) {
   return (
     <div>
         <h3 className="font-black text-2xl">Propina </h3>
@@ -35,6 +36,7 @@ export default function PropinaPorcentaje({setPropina}: PropinaContenProps) {
                         name="tip"
                         value={tip.value}
                         onChange={e => setPropina(+e.target.value)} //tenemos que castearlo 
+                        checked={tip.value === propina}
                     />
                 </div>
             ))}
